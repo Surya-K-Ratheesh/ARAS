@@ -18,6 +18,25 @@
       --dark-3: #1A1A26;
       --text: #E8E8EC;
       --text-muted: #8888A0;
+      --card-bg: rgba(255,255,255,0.03);
+      --card-border: rgba(201,168,76,0.1);
+      --nav-bg: rgba(10,10,15,0.85);
+      --nav-border: rgba(201,168,76,0.1);
+      --section-bg: transparent;
+      --logo-dot: var(--text);
+    }
+
+    html.light-mode {
+      --dark: #F5F3EE;
+      --dark-2: #EDEAE4;
+      --dark-3: #E2DED6;
+      --text: #1A1814;
+      --text-muted: #7A7570;
+      --card-bg: rgba(255,255,255,0.7);
+      --card-border: rgba(201,168,76,0.25);
+      --nav-bg: rgba(245,243,238,0.9);
+      --nav-border: rgba(201,168,76,0.2);
+      --logo-dot: var(--gold);
     }
 
     html { scroll-behavior: smooth; }
@@ -65,9 +84,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10, 10, 15, 0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      border-bottom: 1px solid var(--nav-border);
       transition: all 0.3s;
     }
 
@@ -111,6 +130,30 @@
 
     .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      color: var(--gold);
+      font-size: 16px;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--gold);
+      background: var(--card-bg);
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 8px; }
 
     /* Hero */
     .hero {
@@ -200,8 +243,8 @@
 
     /* Home Section */
     #home .content-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,168,76,0.15);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 60px;
       backdrop-filter: blur(10px);
@@ -254,8 +297,8 @@
     }
 
     .mission-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 32px 24px;
       transition: transform 0.3s, border-color 0.3s;
@@ -322,8 +365,8 @@
     }
 
     .service-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 28px 24px;
       transition: all 0.4s;
@@ -345,9 +388,11 @@
     }
 
     .service-card:hover::before { transform: translateX(100%); }
-    .service-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
+    .service-card:hover { border-color: var(--gold); transform: translateY(-2px); }
 
-    .service-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .service-card .icon { margin-bottom: 12px; display: flex; align-items: center; height: 32px; }
+    .service-card .icon svg { width: 32px; height: 32px; }
+
     .service-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
     .service-card p {
       font-size: 13px;
@@ -368,21 +413,32 @@
     }
 
     .client-item {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,168,76,0.1);
-      border-radius: 12px;
-      padding: 24px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 20px 24px;
       text-align: center;
       font-size: 14px;
       font-weight: 500;
       color: var(--text-muted);
       transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
 
     .client-item:hover {
       color: var(--text);
       border-color: var(--gold);
       background: rgba(201,168,76,0.05);
+      transform: translateY(-3px);
+    }
+
+    .client-item .client-badge svg {
+      width: 52px;
+      height: 52px;
+      display: block;
     }
 
     /* Quote Section */
@@ -402,8 +458,8 @@
 
     /* Contact */
     .contact-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,168,76,0.2);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 60px;
       text-align: center;
@@ -451,7 +507,7 @@
       color: var(--text-muted);
       font-size: 12px;
       letter-spacing: 1px;
-      border-top: 1px solid rgba(201,168,76,0.1);
+      border-top: 1px solid var(--nav-border);
     }
 
     @media (max-width: 768px) {
@@ -462,12 +518,12 @@
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(10,10,15,0.95);
+        background: var(--nav-bg);
         backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 20px;
         gap: 16px;
-        border-bottom: 1px solid rgba(201,168,76,0.1);
+        border-bottom: 1px solid var(--nav-border);
       }
       nav .nav-links.open { display: flex; }
       .hamburger { display: flex; }
@@ -491,8 +547,11 @@
       <li><a href="#clients">Clients</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleNav()">
-      <span></span><span></span><span></span>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+      <div class="hamburger" id="hamburger" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </nav>
 
@@ -577,72 +636,72 @@
       <p class="section-desc">Comprehensive solutions from concept to completion — click any service to learn more.</p>
       <div class="services-grid" id="servicesGrid">
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">📐</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8L6 34h22"/><path d="M28 8l10 26H6"/><line x1="18" y1="22" x2="28" y2="8"/><line x1="12" y1="28" x2="22" y2="14"/><circle cx="28" cy="8" r="1.5" fill="#C9A84C"/><circle cx="6" cy="34" r="1.5" fill="#C9A84C"/></svg></div>
           <h4>BBS & Shop Drawings</h4>
           <p>Preparation of BBS and Shop Drawings submissions with precision and accuracy.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🏛️</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 34V10l6-4 6 4v24"/><path d="M16 34V10l6-4 6 4v24"/><path d="M28 34V10l6-4 6 4v24"/><line x1="4" y1="34" x2="40" y2="34"/><line x1="10" y1="14" x2="10" y2="34"/><line x1="22" y1="14" x2="22" y2="34"/><line x1="34" y1="14" x2="34" y2="34"/></svg></div>
           <h4>Architectural Designs</h4>
           <p>Preparation of Architectural Designs and Submissions tailored to your vision.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🔧</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8v24"/><path d="M12 16h16"/><path d="M10 20l4-4-4-4"/><path d="M30 28l-4-4 4-4"/><circle cx="8" cy="20" r="4" stroke-dasharray="1 1"/><circle cx="32" cy="20" r="4" stroke-dasharray="1 1"/></svg></div>
           <h4>Plumbing Services</h4>
           <p>Blocks, leaks, faulty hoses, any problems in your water pipes can be handled by our expert team.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">❄️</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="12" width="20" height="18" rx="2"/><rect x="14" y="8" width="12" height="6" rx="1"/><line x1="20" y1="8" x2="20" y2="4"/><line x1="16" y1="30" x2="16" y2="36"/><line x1="24" y1="30" x2="24" y2="36"/><path d="M12 18l4 2v4l-4 2"/><path d="M28 18l-4 2v4l4 2"/><path d="M16 22h8" stroke-dasharray="1.5 1.5"/></svg></div>
           <h4>AC Services</h4>
           <p>AC repairs, coil cleaning, duct cleaning, system health check, and more.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">⚡</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M20 10v20"/><path d="M10 20h20"/><circle cx="20" cy="20" r="4" fill="#C9A84C" fill-opacity="0.3"/><line x1="20" y1="4" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="36"/></svg></div>
           <h4>Electrical Services</h4>
           <p>Electrical installations and repairs by certified professionals.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🪚</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6v28"/><path d="M10 14l10-8 10 8"/><path d="M10 34l10-8 10 8"/><line x1="6" y1="20" x2="14" y2="20"/><line x1="26" y1="20" x2="34" y2="20"/><line x1="6" y1="28" x2="12" y2="28"/><line x1="28" y1="28" x2="34" y2="28"/></svg></div>
           <h4>Carpentry & Masonry</h4>
           <p>Furniture assembly and general carpentry with meticulous attention to detail.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🎨</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="16" height="12" rx="1"/><path d="M10 20l-4 6a3 3 0 002 4.5l2 .5"/><path d="M30 20l4 6a3 3 0 01-2 4.5l-2 .5"/><path d="M14 30l-2 6"/><path d="M26 30l2 6"/><line x1="20" y1="20" x2="20" y2="24"/><line x1="16" y1="24" x2="24" y2="24"/></svg></div>
           <h4>Painting Services</h4>
           <p>Interior & exterior, small touch-ups and large-scale restorations.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🧹</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16l10-8 10 8-10 8z"/><path d="M18 8v26"/><line x1="8" y1="28" x2="28" y2="28"/><line x1="8" y1="34" x2="28" y2="34"/><path d="M28 18v16"/><circle cx="28" cy="16" r="2" fill="#C9A84C"/></svg></div>
           <h4>Cleaning Services</h4>
           <p>Deep cleaning of occupied and unoccupied residences and commercial units. Preparations for handover.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🧱</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="12" width="8" height="16"/><rect x="18" y="8" width="8" height="20"/><rect x="30" y="14" width="8" height="14"/><line x1="6" y1="28" x2="38" y2="28"/><line x1="6" y1="32" x2="38" y2="32"/><path d="M10 12v-4"/><path d="M22 8v-4"/><path d="M34 14v-4"/></svg></div>
           <h4>Flooring & Wall Tiling</h4>
           <p>Installing new tiles, re-grouting, marble installation with buffing and polishing.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🐜</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="18" r="10"/><path d="M12 30l-4 6"/><path d="M28 30l4 6"/><circle cx="14" cy="16" r="2" fill="#C9A84C"/><circle cx="24" cy="14" r="1.5" fill="#C9A84C"/><circle cx="18" cy="22" r="1" fill="#C9A84C"/><path d="M20 18l2 4"/><path d="M20 18l-3 1"/></svg></div>
           <h4>Pest Control</h4>
           <p>Removal of existing pests like rodents, cockroaches, and so on. Sealing entry points to prevent further risks.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🪟</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="24" height="20" rx="1"/><line x1="14" y1="10" x2="14" y2="30"/><line x1="20" y1="10" x2="20" y2="30"/><line x1="26" y1="10" x2="26" y2="30"/><line x1="8" y1="18" x2="32" y2="18"/><line x1="8" y1="26" x2="32" y2="26"/><path d="M32 20l4-2v4z"/></svg></div>
           <h4>Aluminum & Glass Works</h4>
           <p>Aluminum/Glass Doors, Windows, Partitions, and custom fabrications.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">✨</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="16" width="28" height="12" rx="1"/><line x1="10" y1="16" x2="10" y2="28"/><line x1="16" y1="16" x2="16" y2="28"/><line x1="22" y1="16" x2="22" y2="28"/><line x1="28" y1="16" x2="28" y2="28"/><path d="M6 14l4-6h20l4 6"/><line x1="20" y1="8" x2="20" y2="12"/></svg></div>
           <h4>Gypsum False Ceiling</h4>
           <p>Installations of gypsum false ceilings, reparations, and paintings.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🔒</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="20" height="24" rx="2"/><line x1="10" y1="14" x2="30" y2="14"/><circle cx="16" cy="20" r="2" fill="#C9A84C"/><circle cx="24" cy="20" r="2" fill="#C9A84C"/><circle cx="16" cy="26" r="2" fill="#C9A84C"/><circle cx="24" cy="26" r="2" fill="#C9A84C"/><path d="M6 32h28"/></svg></div>
           <h4>Security & Access Control</h4>
           <p>Installations, locks, and various security measures for peace of mind.</p>
         </div>
         <div class="service-card" onclick="toggleCard(this)">
-          <div class="icon">🏗️</div>
+          <div class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="28" height="6" rx="1"/><path d="M8 20l-2 10h28l-2-10"/><line x1="14" y1="14" x2="14" y2="30"/><line x1="26" y1="14" x2="26" y2="30"/><path d="M20 12V8"/><line x1="14" y1="8" x2="26" y2="8"/><path d="M20 24l-3-3 3-3 3 3z"/></svg></div>
           <h4>Screed / Power Float</h4>
           <p>Pouring Concrete/Levelling with Masons and finish by Power Float.</p>
         </div>
@@ -667,12 +726,38 @@
       <h2 class="section-title">Trusted Partners</h2>
       <p class="section-desc">Serving commercial clients with excellence across multiple disciplines.</p>
       <div class="clients-list">
-        <div class="client-item">Aluminum & Glass Works</div>
-        <div class="client-item">Skylight Works</div>
-        <div class="client-item">Shower Partition</div>
-        <div class="client-item">Windows</div>
-        <div class="client-item">Screed / Power Float Works</div>
-        <div class="client-item">False Ceiling & Cornice Works</div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="16" font-weight="700">AG</text></svg></div>
+          Al Garhoud Hospital
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="14" font-weight="700">DBS</text></svg></div>
+          Dubai British School
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="16" font-weight="700">WP</text></svg></div>
+          Woodlem Park School
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="14" font-weight="700">MCA</text></svg></div>
+          MCA TECH
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="18" font-weight="700">M</text></svg></div>
+          Milele
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="18" font-weight="700">D</text></svg></div>
+          Designsmithh
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="14" font-weight="700">DAS</text></svg></div>
+          Derah Al Shabh
+        </div>
+        <div class="client-item">
+          <div class="client-badge"><svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.2"/><circle cx="26" cy="26" r="20" fill="#C9A84C" fill-opacity="0.08"/><text x="26" y="31" text-anchor="middle" fill="#C9A84C" font-family="Inter,sans-serif" font-size="14" font-weight="700">CBC</text></svg></div>
+          Corys Build Centre
+        </div>
       </div>
     </div>
   </section>
@@ -697,89 +782,168 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // === Three.js 3D Background ===
+    // === Three.js Architectural/Engineering 3D Background ===
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    scene.background = new THREE.Color(localStorage.getItem('aras-theme') === 'light' ? 0xF0EDE8 : 0x060812);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // Particles
-    const particlesCount = 2000;
-    const positions = new Float32Array(particlesCount * 3);
-    const colors = new Float32Array(particlesCount * 3);
+    const blueprintColor = 0x1a6bff;
+    const blueprintDim = 0x0a3a8a;
+    const accentColor = 0x4af0ff;
 
-    const goldColor = new THREE.Color(0xC9A84C);
-    const whiteColor = new THREE.Color(0xE8E8EC);
+    // === Blueprint Grid Floor ===
+    const gridHelper = new THREE.GridHelper(40, 40, blueprintColor, blueprintDim);
+    gridHelper.position.y = -2.5;
+    gridHelper.material.transparent = true;
+    gridHelper.material.opacity = 0.25;
+    scene.add(gridHelper);
 
-    for (let i = 0; i < particlesCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 30;
-      positions[i+1] = (Math.random() - 0.5) * 30;
-      positions[i+2] = (Math.random() - 0.5) * 30;
-
-      const mix = Math.random();
-      const color = goldColor.clone().lerp(whiteColor, mix);
-      colors[i] = color.r;
-      colors[i+1] = color.g;
-      colors[i+2] = color.b;
+    // Vertical grid lines (like blueprint elevation lines)
+    const vGridMat = new THREE.LineBasicMaterial({ color: blueprintDim, transparent: true, opacity: 0.1 });
+    for (let i = -20; i <= 20; i += 2) {
+      const pts = [new THREE.Vector3(i, -2.5, -20), new THREE.Vector3(i, -2.5, 20)];
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      scene.add(new THREE.Line(geo, vGridMat));
     }
 
-    const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    // === Wireframe Buildings (cityscape) ===
+    const buildingsGroup = new THREE.Group();
+    scene.add(buildingsGroup);
 
-    const particleMaterial = new THREE.PointsMaterial({
-      size: 0.04,
+    function createBuilding(w, h, d, x, z, colorOffset) {
+      const geo = new THREE.BoxGeometry(w, h, d);
+      const edges = new THREE.EdgesGeometry(geo);
+      const mat = new THREE.LineBasicMaterial({
+        color: new THREE.Color(blueprintColor).offsetHSL(colorOffset * 0.02, 0, 0),
+        transparent: true,
+        opacity: 0.35 + Math.random() * 0.2,
+      });
+      const wireframe = new THREE.LineSegments(edges, mat);
+      wireframe.position.set(x, h / 2 - 2.5, z);
+      return wireframe;
+    }
+
+    const buildingLayouts = [
+      { w: 1.2, h: 3.5, d: 1.2, x: -4, z: -3 },
+      { w: 0.8, h: 5.0, d: 0.8, x: -2, z: -4 },
+      { w: 1.5, h: 2.8, d: 1.0, x:  0, z: -3 },
+      { w: 1.0, h: 4.2, d: 1.0, x:  2, z: -5 },
+      { w: 0.6, h: 6.0, d: 0.6, x:  4, z: -3 },
+      { w: 1.8, h: 2.0, d: 1.2, x: -5, z:  1 },
+      { w: 1.0, h: 3.8, d: 1.0, x: -3, z:  2 },
+      { w: 0.8, h: 4.5, d: 0.8, x: -1, z:  1 },
+      { w: 1.4, h: 3.0, d: 1.0, x:  1, z:  2 },
+      { w: 0.7, h: 5.5, d: 0.7, x:  3, z:  1 },
+      { w: 1.0, h: 3.2, d: 1.0, x:  5, z:  2 },
+      { w: 1.2, h: 2.5, d: 1.2, x: -6, z: -1 },
+      { w: 0.9, h: 4.0, d: 0.9, x:  6, z:  0 },
+    ];
+
+    buildingLayouts.forEach((b, i) => {
+      const bldg = createBuilding(b.w, b.h, b.d, b.x, b.z, i);
+      buildingsGroup.add(bldg);
+    });
+
+    // === Structural Trusses (floating) ===
+    const trusses = [];
+    function createTruss(x, y, z, scale, rotY) {
+      const group = new THREE.Group();
+      const mat = new THREE.LineBasicMaterial({
+        color: accentColor,
+        transparent: true,
+        opacity: 0.12,
+      });
+      // Top chord
+      const topPts = [];
+      for (let i = 0; i <= 8; i++) {
+        topPts.push(new THREE.Vector3(i * 0.3 - 1.2, 0.4 * Math.sin(i * 0.8), 0));
+      }
+      const topGeo = new THREE.BufferGeometry().setFromPoints(topPts);
+      group.add(new THREE.Line(topGeo, mat));
+      // Bottom chord
+      const botPts = [];
+      for (let i = 0; i <= 8; i++) {
+        botPts.push(new THREE.Vector3(i * 0.3 - 1.2, 0.4 * Math.sin(i * 0.8 + 1.5) - 0.6, 0));
+      }
+      const botGeo = new THREE.BufferGeometry().setFromPoints(botPts);
+      group.add(new THREE.Line(botGeo, mat));
+      // Verticals
+      const vertMat = new THREE.LineBasicMaterial({ color: blueprintColor, transparent: true, opacity: 0.08 });
+      for (let i = 0; i <= 8; i++) {
+        const xPos = i * 0.3 - 1.2;
+        const topY = 0.4 * Math.sin(i * 0.8);
+        const botY = 0.4 * Math.sin(i * 0.8 + 1.5) - 0.6;
+        const pts = [new THREE.Vector3(xPos, topY, 0), new THREE.Vector3(xPos, botY, 0)];
+        const g = new THREE.BufferGeometry().setFromPoints(pts);
+        group.add(new THREE.Line(g, vertMat));
+      }
+      group.position.set(x, y, z);
+      group.rotation.y = rotY;
+      group.scale.set(scale, scale, scale);
+      return group;
+    }
+
+    for (let i = 0; i < 6; i++) {
+      const t = createTruss(
+        (Math.random() - 0.5) * 20,
+        1 + Math.random() * 3,
+        (Math.random() - 0.5) * 15 - 3,
+        0.8 + Math.random() * 0.8,
+        Math.random() * Math.PI * 2,
+      );
+      scene.add(t);
+      trusses.push(t);
+    }
+
+    // === Floating Blueprint Dots / Measurements ===
+    const dotCount = 400;
+    const dotGeo = new THREE.BufferGeometry();
+    const dotPos = new Float32Array(dotCount * 3);
+    const dotColors = new Float32Array(dotCount * 3);
+    const blueC = new THREE.Color(blueprintColor);
+    const cyanC = new THREE.Color(accentColor);
+    for (let i = 0; i < dotCount; i++) {
+      dotPos[i * 3] = (Math.random() - 0.5) * 35;
+      dotPos[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      dotPos[i * 3 + 2] = (Math.random() - 0.5) * 25 - 3;
+      const c = blueC.clone().lerp(cyanC, Math.random() * 0.4);
+      dotColors[i * 3] = c.r;
+      dotColors[i * 3 + 1] = c.g;
+      dotColors[i * 3 + 2] = c.b;
+    }
+    dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPos, 3));
+    dotGeo.setAttribute('color', new THREE.BufferAttribute(dotColors, 3));
+    const dotMat = new THREE.PointsMaterial({
+      size: 0.06,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.5,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true,
     });
+    const dotSystem = new THREE.Points(dotGeo, dotMat);
+    scene.add(dotSystem);
 
-    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particleSystem);
-
-    // Floating geometric shapes
-    const shapes = [];
-    const shapeGeometries = [
-      new THREE.TorusGeometry(0.3, 0.1, 16, 32),
-      new THREE.OctahedronGeometry(0.25),
-      new THREE.IcosahedronGeometry(0.2),
-      new THREE.TorusKnotGeometry(0.2, 0.08, 32, 16),
-    ];
-
-    const goldMat = new THREE.MeshBasicMaterial({
-      color: 0xC9A84C,
-      transparent: true,
-      opacity: 0.15,
-      wireframe: true,
-    });
-
-    for (let i = 0; i < 15; i++) {
-      const geo = shapeGeometries[Math.floor(Math.random() * shapeGeometries.length)];
-      const mesh = new THREE.Mesh(geo, goldMat.clone());
-      mesh.position.set(
-        (Math.random() - 0.5) * 25,
-        (Math.random() - 0.5) * 25,
-        (Math.random() - 0.5) * 15 - 5,
-      );
-      mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-      mesh.userData = {
-        rotSpeed: { x: (Math.random() - 0.5) * 0.01, y: (Math.random() - 0.5) * 0.01 },
-        floatSpeed: 0.2 + Math.random() * 0.3,
-        floatAmp: 0.3 + Math.random() * 0.5,
-        initialY: mesh.position.y,
-        opacity: 0.05 + Math.random() * 0.15,
-      };
-      mesh.material.opacity = mesh.userData.opacity;
-      scene.add(mesh);
-      shapes.push(mesh);
+    // === Dimension Lines (floating) ===
+    const dimMat = new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.06 });
+    for (let i = 0; i < 10; i++) {
+      const y = -1 + Math.random() * 4;
+      const z = (Math.random() - 0.5) * 12 - 2;
+      const pts = [
+        new THREE.Vector3(-8 + Math.random() * 3, y, z),
+        new THREE.Vector3(8 - Math.random() * 3, y, z),
+      ];
+      const g = new THREE.BufferGeometry().setFromPoints(pts);
+      scene.add(new THREE.Line(g, dimMat));
     }
 
-    camera.position.z = 8;
+    camera.position.set(0, 2, 10);
+    camera.lookAt(0, 0, 0);
 
     let mouseX = 0, mouseY = 0;
     document.addEventListener('mousemove', (e) => {
@@ -793,26 +957,25 @@
       requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Rotate particles
-      particleSystem.rotation.x = elapsed * 0.02;
-      particleSystem.rotation.y = elapsed * 0.03;
+      // Rotate building group slowly
+      buildingsGroup.rotation.y = Math.sin(elapsed * 0.04) * 0.15;
 
-      // Animate shapes
-      shapes.forEach((mesh, i) => {
-        mesh.rotation.x += mesh.userData.rotSpeed.x;
-        mesh.rotation.y += mesh.userData.rotSpeed.y;
-        mesh.position.y = mesh.userData.initialY + Math.sin(elapsed * mesh.userData.floatSpeed + i) * mesh.userData.floatAmp;
-        mesh.material.opacity = mesh.userData.opacity + Math.sin(elapsed * 0.5 + i) * 0.03;
+      // Float trusses
+      trusses.forEach((t, i) => {
+        t.position.y += Math.sin(elapsed * 0.3 + i * 0.7) * 0.002;
+        t.rotation.z = Math.sin(elapsed * 0.2 + i) * 0.03;
       });
 
+      // Dots drift
+      dotSystem.rotation.y = elapsed * 0.01;
+      dotSystem.rotation.x = Math.sin(elapsed * 0.015) * 0.02;
+
       // Mouse parallax
-      const targetX = mouseX * 0.5;
-      const targetY = mouseY * 0.3;
-      particleSystem.rotation.x += (targetY * 0.01 - particleSystem.rotation.x) * 0.01;
-      particleSystem.rotation.y += (targetX * 0.01 - particleSystem.rotation.y) * 0.01;
-      camera.position.x += (targetX * 0.3 - camera.position.x) * 0.02;
-      camera.position.y += (targetY * 0.3 - camera.position.y) * 0.02;
-      camera.lookAt(scene.position);
+      const targetX = mouseX * 0.4;
+      const targetY = mouseY * 0.25;
+      camera.position.x += (targetX * 0.5 - camera.position.x) * 0.015;
+      camera.position.y += (targetY * 0.5 + 2 - camera.position.y) * 0.015;
+      camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
     }
@@ -825,6 +988,24 @@
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
+
+    // === Theme Toggle ===
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isLight = html.classList.toggle('light-mode');
+      const btn = document.getElementById('themeToggle');
+      btn.innerHTML = isLight ? '&#9790;' : '&#9789;';
+      // Update 3D scene background
+      scene.background = new THREE.Color(isLight ? 0xF0EDE8 : 0x060812);
+      localStorage.setItem('aras-theme', isLight ? 'light' : 'dark');
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('aras-theme') === 'light') {
+      document.documentElement.classList.add('light-mode');
+      document.getElementById('themeToggle').innerHTML = '&#9790;';
+      scene.background = new THREE.Color(0xF0EDE8);
+    }
 
     // === UI Functions ===
     function toggleCard(el) {
