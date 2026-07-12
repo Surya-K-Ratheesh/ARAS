@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "**/*", "use": "@vercel/static" }
-  ],
+  "functions": {
+    "api/chat.js": { "maxDuration": 10 }
+  },
   "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/logos/(.*)", "dest": "/logos/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/(.*)", "dest": "/index.html" }

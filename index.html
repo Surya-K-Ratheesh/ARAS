@@ -169,6 +169,156 @@
 
     .nav-right { display: flex; align-items: center; gap: 8px; }
 
+    /* === Chat Widget === */
+    .chat-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+
+    .chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(201,168,76,0.4); }
+    .chat-btn svg { width: 24px; height: 24px; stroke: #0A0A0F; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 200;
+      width: 360px;
+      max-height: 520px;
+      background: var(--dark-2);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .chat-panel.open { display: flex; }
+
+    .chat-header {
+      padding: 14px 20px;
+      background: var(--gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: #0A0A0F;
+      margin: 0;
+    }
+
+    .chat-header span { font-size: 11px; color: rgba(10,10,15,0.6); font-weight: 400; font-family: 'Inter', sans-serif; }
+
+    .chat-close {
+      background: none; border: none; color: #0A0A0F; font-size: 20px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; line-height: 1;
+    }
+    .chat-close:hover { opacity: 1; }
+
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 340px;
+    }
+
+    .chat-messages .msg {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 85%;
+      word-wrap: break-word;
+    }
+
+    .chat-messages .msg.bot {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-messages .msg.user {
+      background: var(--gold);
+      color: #0A0A0F;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-messages .msg.bot .typing {
+      display: inline-block;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .chat-input-wrap {
+      padding: 12px 16px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      gap: 8px;
+      background: var(--dark-2);
+    }
+
+    .chat-input-wrap input {
+      flex: 1;
+      background: var(--dark-3);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .chat-input-wrap input:focus { border-color: var(--gold); }
+    .chat-input-wrap input::placeholder { color: var(--text-muted); }
+
+    .chat-input-wrap .send-btn {
+      background: var(--gold);
+      border: none;
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+      flex-shrink: 0;
+    }
+
+    .chat-input-wrap .send-btn:hover { opacity: 0.8; }
+    .chat-input-wrap .send-btn svg { width: 16px; height: 16px; stroke: #0A0A0F; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (max-width: 480px) {
+      .chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 80px; max-height: 60vh; }
+      .chat-btn { bottom: 16px; right: 16px; width: 48px; height: 48px; }
+      .chat-btn svg { width: 20px; height: 20px; }
+    }
+
     /* Hero */
     .hero {
       min-height: 100vh;
@@ -902,6 +1052,28 @@
     </div>
   </section>
 
+  <!-- Chat Button -->
+  <button class="chat-btn" id="chatBtn" onclick="toggleChat()" aria-label="Open ARAS.Ai">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div><h3>ARAS.Ai</h3><span>Ask me anything</span></div>
+      <button class="chat-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">Hi! I'm ARAS.Ai. Ask me about our services, projects, or anything related to ARAS.</div>
+    </div>
+    <div class="chat-input-wrap">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
   <footer>
     &copy; 2026 ARAS — Design Your Dreams. All rights reserved.
   </footer>
@@ -962,6 +1134,61 @@
     // Show first section immediately
     document.getElementById('hero').style.opacity = '1';
     document.getElementById('hero').style.transform = 'translateY(0)';
+
+    // === ARAS.Ai Chat ===
+    function toggleChat() {
+      document.getElementById('chatPanel').classList.toggle('open');
+    }
+
+    function formatChat(text) {
+      return text
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+    }
+    function addMessage(text, sender) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'msg ' + sender;
+      div.innerHTML = formatChat(text);
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      input.value = '';
+
+      const msgs = document.getElementById('chatMessages');
+      const typing = document.createElement('div');
+      typing.className = 'msg bot';
+      typing.innerHTML = '<span class="typing">&#9632;</span>';
+      msgs.appendChild(typing);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        typing.remove();
+        if (data.reply) {
+          addMessage(data.reply, 'bot');
+        } else {
+          addMessage('Error: ' + (data.error || 'Failed to get response'), 'bot');
+        }
+      } catch (e) {
+        typing.remove();
+        addMessage('Network error. Check your connection.', 'bot');
+      }
+    }
   </script>
 
 </body>
