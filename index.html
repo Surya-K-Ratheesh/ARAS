@@ -24,6 +24,7 @@
       --nav-border: rgba(201,168,76,0.1);
       --section-bg: transparent;
       --logo-dot: var(--text);
+      --bg-pattern: #060812;
     }
 
     html.light-mode {
@@ -37,6 +38,7 @@
       --nav-bg: rgba(245,243,238,0.9);
       --nav-border: rgba(201,168,76,0.2);
       --logo-dot: var(--gold);
+      --bg-pattern: #E8E4DE;
     }
 
     html { scroll-behavior: smooth; }
@@ -56,6 +58,18 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
+      background:
+        linear-gradient(rgba(26, 107, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 107, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(26, 107, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 107, 255, 0.02) 1px, transparent 1px),
+        var(--bg-pattern);
+      background-size:
+        40px 40px,
+        40px 40px,
+        10px 10px,
+        10px 10px;
+      transition: background 0.5s;
     }
 
     .section {
@@ -892,223 +906,13 @@
     &copy; 2026 ARAS — Design Your Dreams. All rights reserved.
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    // === Three.js Architectural/Engineering 3D Background ===
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(localStorage.getItem('aras-theme') === 'light' ? 0xF0EDE8 : 0x060812);
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    const blueprintColor = 0x1a6bff;
-    const blueprintDim = 0x0a3a8a;
-    const accentColor = 0x4af0ff;
-
-    // === Blueprint Grid Floor ===
-    const gridHelper = new THREE.GridHelper(40, 40, blueprintColor, blueprintDim);
-    gridHelper.position.y = -2.5;
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.25;
-    scene.add(gridHelper);
-
-    // Vertical grid lines (like blueprint elevation lines)
-    const vGridMat = new THREE.LineBasicMaterial({ color: blueprintDim, transparent: true, opacity: 0.1 });
-    for (let i = -20; i <= 20; i += 2) {
-      const pts = [new THREE.Vector3(i, -2.5, -20), new THREE.Vector3(i, -2.5, 20)];
-      const geo = new THREE.BufferGeometry().setFromPoints(pts);
-      scene.add(new THREE.Line(geo, vGridMat));
-    }
-
-    // === Wireframe Buildings (cityscape) ===
-    const buildingsGroup = new THREE.Group();
-    scene.add(buildingsGroup);
-
-    function createBuilding(w, h, d, x, z, colorOffset) {
-      const geo = new THREE.BoxGeometry(w, h, d);
-      const edges = new THREE.EdgesGeometry(geo);
-      const mat = new THREE.LineBasicMaterial({
-        color: new THREE.Color(blueprintColor).offsetHSL(colorOffset * 0.02, 0, 0),
-        transparent: true,
-        opacity: 0.35 + Math.random() * 0.2,
-      });
-      const wireframe = new THREE.LineSegments(edges, mat);
-      wireframe.position.set(x, h / 2 - 2.5, z);
-      return wireframe;
-    }
-
-    const buildingLayouts = [
-      { w: 1.2, h: 3.5, d: 1.2, x: -4, z: -3 },
-      { w: 0.8, h: 5.0, d: 0.8, x: -2, z: -4 },
-      { w: 1.5, h: 2.8, d: 1.0, x:  0, z: -3 },
-      { w: 1.0, h: 4.2, d: 1.0, x:  2, z: -5 },
-      { w: 0.6, h: 6.0, d: 0.6, x:  4, z: -3 },
-      { w: 1.8, h: 2.0, d: 1.2, x: -5, z:  1 },
-      { w: 1.0, h: 3.8, d: 1.0, x: -3, z:  2 },
-      { w: 0.8, h: 4.5, d: 0.8, x: -1, z:  1 },
-      { w: 1.4, h: 3.0, d: 1.0, x:  1, z:  2 },
-      { w: 0.7, h: 5.5, d: 0.7, x:  3, z:  1 },
-      { w: 1.0, h: 3.2, d: 1.0, x:  5, z:  2 },
-      { w: 1.2, h: 2.5, d: 1.2, x: -6, z: -1 },
-      { w: 0.9, h: 4.0, d: 0.9, x:  6, z:  0 },
-    ];
-
-    buildingLayouts.forEach((b, i) => {
-      const bldg = createBuilding(b.w, b.h, b.d, b.x, b.z, i);
-      buildingsGroup.add(bldg);
-    });
-
-    // === Structural Trusses (floating) ===
-    const trusses = [];
-    function createTruss(x, y, z, scale, rotY) {
-      const group = new THREE.Group();
-      const mat = new THREE.LineBasicMaterial({
-        color: accentColor,
-        transparent: true,
-        opacity: 0.12,
-      });
-      // Top chord
-      const topPts = [];
-      for (let i = 0; i <= 8; i++) {
-        topPts.push(new THREE.Vector3(i * 0.3 - 1.2, 0.4 * Math.sin(i * 0.8), 0));
-      }
-      const topGeo = new THREE.BufferGeometry().setFromPoints(topPts);
-      group.add(new THREE.Line(topGeo, mat));
-      // Bottom chord
-      const botPts = [];
-      for (let i = 0; i <= 8; i++) {
-        botPts.push(new THREE.Vector3(i * 0.3 - 1.2, 0.4 * Math.sin(i * 0.8 + 1.5) - 0.6, 0));
-      }
-      const botGeo = new THREE.BufferGeometry().setFromPoints(botPts);
-      group.add(new THREE.Line(botGeo, mat));
-      // Verticals
-      const vertMat = new THREE.LineBasicMaterial({ color: blueprintColor, transparent: true, opacity: 0.08 });
-      for (let i = 0; i <= 8; i++) {
-        const xPos = i * 0.3 - 1.2;
-        const topY = 0.4 * Math.sin(i * 0.8);
-        const botY = 0.4 * Math.sin(i * 0.8 + 1.5) - 0.6;
-        const pts = [new THREE.Vector3(xPos, topY, 0), new THREE.Vector3(xPos, botY, 0)];
-        const g = new THREE.BufferGeometry().setFromPoints(pts);
-        group.add(new THREE.Line(g, vertMat));
-      }
-      group.position.set(x, y, z);
-      group.rotation.y = rotY;
-      group.scale.set(scale, scale, scale);
-      return group;
-    }
-
-    for (let i = 0; i < 6; i++) {
-      const t = createTruss(
-        (Math.random() - 0.5) * 20,
-        1 + Math.random() * 3,
-        (Math.random() - 0.5) * 15 - 3,
-        0.8 + Math.random() * 0.8,
-        Math.random() * Math.PI * 2,
-      );
-      scene.add(t);
-      trusses.push(t);
-    }
-
-    // === Floating Blueprint Dots / Measurements ===
-    const dotCount = 400;
-    const dotGeo = new THREE.BufferGeometry();
-    const dotPos = new Float32Array(dotCount * 3);
-    const dotColors = new Float32Array(dotCount * 3);
-    const blueC = new THREE.Color(blueprintColor);
-    const cyanC = new THREE.Color(accentColor);
-    for (let i = 0; i < dotCount; i++) {
-      dotPos[i * 3] = (Math.random() - 0.5) * 35;
-      dotPos[i * 3 + 1] = (Math.random() - 0.5) * 15;
-      dotPos[i * 3 + 2] = (Math.random() - 0.5) * 25 - 3;
-      const c = blueC.clone().lerp(cyanC, Math.random() * 0.4);
-      dotColors[i * 3] = c.r;
-      dotColors[i * 3 + 1] = c.g;
-      dotColors[i * 3 + 2] = c.b;
-    }
-    dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPos, 3));
-    dotGeo.setAttribute('color', new THREE.BufferAttribute(dotColors, 3));
-    const dotMat = new THREE.PointsMaterial({
-      size: 0.06,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true,
-    });
-    const dotSystem = new THREE.Points(dotGeo, dotMat);
-    scene.add(dotSystem);
-
-    // === Dimension Lines (floating) ===
-    const dimMat = new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.06 });
-    for (let i = 0; i < 10; i++) {
-      const y = -1 + Math.random() * 4;
-      const z = (Math.random() - 0.5) * 12 - 2;
-      const pts = [
-        new THREE.Vector3(-8 + Math.random() * 3, y, z),
-        new THREE.Vector3(8 - Math.random() * 3, y, z),
-      ];
-      const g = new THREE.BufferGeometry().setFromPoints(pts);
-      scene.add(new THREE.Line(g, dimMat));
-    }
-
-    camera.position.set(0, 2, 10);
-    camera.lookAt(0, 0, 0);
-
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
-
-      // Rotate building group slowly
-      buildingsGroup.rotation.y = Math.sin(elapsed * 0.04) * 0.15;
-
-      // Float trusses
-      trusses.forEach((t, i) => {
-        t.position.y += Math.sin(elapsed * 0.3 + i * 0.7) * 0.002;
-        t.rotation.z = Math.sin(elapsed * 0.2 + i) * 0.03;
-      });
-
-      // Dots drift
-      dotSystem.rotation.y = elapsed * 0.01;
-      dotSystem.rotation.x = Math.sin(elapsed * 0.015) * 0.02;
-
-      // Mouse parallax
-      const targetX = mouseX * 0.4;
-      const targetY = mouseY * 0.25;
-      camera.position.x += (targetX * 0.5 - camera.position.x) * 0.015;
-      camera.position.y += (targetY * 0.5 + 2 - camera.position.y) * 0.015;
-      camera.lookAt(0, 0, 0);
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-
-    // Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
+    <script>
     // === Theme Toggle ===
     function toggleTheme() {
       const html = document.documentElement;
       const isLight = html.classList.toggle('light-mode');
       const btn = document.getElementById('themeToggle');
       btn.innerHTML = isLight ? '&#9790;' : '&#9789;';
-      // Update 3D scene background
-      scene.background = new THREE.Color(isLight ? 0xF0EDE8 : 0x060812);
       localStorage.setItem('aras-theme', isLight ? 'light' : 'dark');
     }
 
@@ -1116,7 +920,6 @@
     if (localStorage.getItem('aras-theme') === 'light') {
       document.documentElement.classList.add('light-mode');
       document.getElementById('themeToggle').innerHTML = '&#9790;';
-      scene.background = new THREE.Color(0xF0EDE8);
     }
 
     // === UI Functions ===
