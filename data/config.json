@@ -1,0 +1,44 @@
+{
+  "company": {
+    "name": "Al Rimal Al Safra Technical Services L.L.C.",
+    "shortName": "ARAS",
+    "tagline": "Design Your Dreams",
+    "phone": "+971504670636",
+    "phoneDisplay": "050-467 0636",
+    "email": "alrimalts@hotmail.com",
+    "whatsapp": "971504670636",
+    "address": "Dubai, United Arab Emirates"
+  },
+  "seo": {
+    "title": "ARAS - Design Your Dreams | Engineering & Construction Services",
+    "description": "ARAS offers Civil, Structural, Architectural, MEP, Electrical, Plumbing, HVAC, and interior fit-out services in Dubai.",
+    "gaId": ""
+  },
+  "hero": {
+    "heading1": "ARAS",
+    "heading2": "Design Your Dreams",
+    "tagline": "Yesterday is but today's memory, and tomorrow is today's dream.",
+    "subtitle": "Share your dreams, we will make a better tomorrows."
+  },
+  "services": [
+    { "title": "BBS & Shop Drawings", "desc": "Preparation of BBS and Shop Drawings submissions with precision and accuracy." },
+    { "title": "Architectural Designs", "desc": "Preparation of Architectural Designs and Submissions tailored to your vision." },
+    { "title": "Plumbing Services", "desc": "Blocks, leaks, faulty hoses, any problems in your water pipes can be handled by our expert team." },
+    { "title": "AC Services", "desc": "AC repairs, coil cleaning, duct cleaning, system health check, and more." },
+    { "title": "Electrical Services", "desc": "Electrical installations and repairs by certified professionals." },
+    { "title": "Carpentry & Masonry", "desc": "Furniture assembly and general carpentry with meticulous attention to detail." },
+    { "title": "Painting Services", "desc": "Interior & exterior, small touch-ups and large-scale restorations." },
+    { "title": "Cleaning Services", "desc": "Deep cleaning of occupied and unoccupied residences and commercial units." },
+    { "title": "Flooring & Wall Tiling", "desc": "Installing new tiles, re-grouting, marble installation with buffing and polishing." },
+    { "title": "Pest Control", "desc": "Removal of existing pests like rodents, cockroaches, and so on." },
+    { "title": "Aluminum & Glass Works", "desc": "Aluminum/Glass Doors, Windows, Partitions, and custom fabrications." },
+    { "title": "Gypsum False Ceiling", "desc": "Installations of gypsum false ceilings, reparations, and paintings." },
+    { "title": "Security & Access Control", "desc": "Installations, locks, and various security measures for peace of mind." },
+    { "title": "Screed / Power Float", "desc": "Pouring Concrete/Levelling with Masons and finish by Power Float." }
+  ],
+  "divisions": ["Civil", "Structural", "Architectural", "MEP", "Electrical", "Plumbing", "HVAC"],
+  "clients": [
+    "Al Garhoud Hospital", "Dubai British School", "Woodlem Park School", "MCA TECH", "Milele",
+    "Designsmithh", "Derah Al Shabh", "Corys Build Centre", "Mouhajer", "Tiger Group"
+  ]
+}
