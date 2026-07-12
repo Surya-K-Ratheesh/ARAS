@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/chat.js": { "maxDuration": 60 },
-    "api/contact.js": { "maxDuration": 30 },
+    "api/contact.js": { "maxDuration": 30 }
   },
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
