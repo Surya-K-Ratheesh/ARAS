@@ -3,7 +3,7 @@
   <h3>Design Your Dreams</h3>
   <br>
   <p>
-    <img src="https://img.shields.io/badge/Three.js-3D_Background-000000?style=for-the-badge&logo=three.js&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Gemini-AI_Chatbot-8E75B2?style=for-the-badge&logo=google&logoColor=white"/>
     <img src="https://img.shields.io/badge/Responsive-✓-C9A84C?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/Light_%2F_Dark_Mode-✓-C9A84C?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/Vercel-Ready-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
@@ -14,7 +14,7 @@
 
 ## Overview
 
-Interactive 3D landing page for **ARAS** — a construction and technical services company. Built with Three.js for the architectural/engineering-themed 3D background, featuring a full company profile with services, divisions, clients, and contact info.
+Interactive landing page for **ARAS** — a construction and technical services company. Featuring a full company profile with services, divisions, clients, and contact info, along with a built-in AI chatbot to instantly answer client queries.
 
 ### Live Demo
 
@@ -24,7 +24,8 @@ Deploy instantly to Vercel — see [Deployment](#deployment) below.
 
 ## Features
 
-- **3D Architectural Background** — Blueprint-style grid floor, wireframe buildings, floating trusses, and measurement dots powered by Three.js
+- **AI Chatbot** — Intelligent virtual assistant powered by the Gemini API to instantly answer company-related queries
+- **Modern Static Design** — Clean, performant, and professional static background
 - **Dark / Light Mode** — Toggle between themes with a single click, preference saved to localStorage
 - **Responsive Design** — Fully adaptive on mobile, tablet, and desktop
 - **Interactive Service Cards** — Click any service to expand details
@@ -37,7 +38,7 @@ Deploy instantly to Vercel — see [Deployment](#deployment) below.
 
 | Technology | Purpose |
 |---|---|
-| [Three.js](https://threejs.org/) | 3D interactive background |
+| [Gemini API](https://aistudio.google.com/) | AI Chatbot capabilities |
 | HTML5 / CSS3 | Structure & styling with CSS variables |
 | Vanilla JavaScript | UI interactions, theme toggle, animations |
 | [Vercel](https://vercel.com/) | Deployment (static site) |
@@ -64,18 +65,28 @@ Deploy instantly to Vercel — see [Deployment](#deployment) below.
 - A modern web browser
 - (Optional) Python or Node.js for local development server
 
+### Environment Variables
+
+Create a `.env` file in the root directory and add your Gemini API Key for the chatbot to work:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
 ### Local Development
+
+To run the site locally along with the serverless functions (for the chatbot), use the Vercel CLI:
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/aras-landing.git
 cd aras-landing
 
-# Serve with Python
-python -m http.server 3000
+# Install Vercel CLI if you haven't already
+npm i -g vercel
 
-# Or with Node.js
-npx http-server -p 3000
+# Run local development server
+vercel dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -111,12 +122,9 @@ Edit the CSS variables in `:root` inside `index.html`:
 
 Light mode overrides are in `html.light-mode`.
 
-### 3D Scene
+### AI Chatbot Prompt
 
-The Three.js scene is in the `<script>` block at the end of `index.html`. You can adjust:
-- Building positions & sizes (the `buildingLayouts` array)
-- Grid size & opacity
-- Color palette (`blueprintColor`, `accentColor` variables)
+The AI instructions and knowledge base are located in `api/chat.js`. You can modify the system prompt to change the bot's behavior or add new services to its knowledge base.
 
 ---
 
@@ -144,6 +152,8 @@ A `vercel.json` is included for static deployment configuration.
 
 ```
 aras-landing/
+├── api/
+│   └── chat.js       # Vercel serverless function for AI Chatbot
 ├── index.html        # Main landing page (single file)
 ├── images/           # Project & service images
 ├── vercel.json       # Vercel deployment config
